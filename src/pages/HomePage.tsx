@@ -23,7 +23,7 @@ const HomePage = () => {
   };
 
   const getCountriesFromLocalStorage = () => {
-    const countries = get(key.dev);
+    const countries: Country[] = get(key.dev);
     if (!countries) return;
 
     setLocalStorageCountries(countries);
