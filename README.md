@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## See web app demo live here
+[![Netlify Status](https://api.netlify.com/api/v1/badges/fa695b1d-2a26-4f7c-8c87-fafc5c0ae363/deploy-status)](https://app.netlify.com/sites/competent-swirles-014bf0/deploys)
+- see demo app live here https://competent-swirles-014bf0.netlify.app/
+
 ### In the project directory, you can run:
 
 ### `npm start`
