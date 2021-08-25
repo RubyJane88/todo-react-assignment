@@ -1,6 +1,9 @@
 import * as React from "react";
 import { DataGrid, GridCellParams, GridColDef } from "@material-ui/data-grid";
 
+import { get } from "../utils/cache";
+import { key } from "../config/localData";
+
 import { Country } from "../models/country";
 
 const columns: GridColDef[] = [
@@ -10,11 +13,8 @@ const columns: GridColDef[] = [
   { field: "population", headerName: "Population", width: 160 },
 ];
 
-type Props = {
-  countries: Country[];
-};
-
-const DataGridCountry = ({ countries }: Props) => {
+/*for rendering countries */
+const DataGridCountry = () => {
   const handleOnCellClick = (params: GridCellParams) => {
     const accept = window.confirm(
       `Do you want to delete ${params.id} from your list?`
@@ -24,10 +24,12 @@ const DataGridCountry = ({ countries }: Props) => {
     alert("Mock deletion. Not really deleting. 😉");
   };
 
+  const localStorageCountries: Country[] = get(key.dev) ?? [];
+
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
-        rows={countries}
+        rows={localStorageCountries}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

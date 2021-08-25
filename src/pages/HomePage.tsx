@@ -10,9 +10,6 @@ import { key } from "../config/localData";
 const HomePage = () => {
   /* local states */
   const [countries, setCountries] = useState<Country[]>([]);
-  const [localStorageCountries, setLocalStorageCountries] = useState<Country[]>(
-    get(key.dev) ?? []
-  );
 
   /* functions */
   const fetchCountries = async () => {
@@ -22,22 +19,27 @@ const HomePage = () => {
     _removedCountriesAlreadySaved(fetchedCountries);
   };
 
+  /* getting saved countries from localStorage */
   const getCountriesFromLocalStorage = () => {
     const countries: Country[] = get(key.dev);
     if (!countries) return;
 
-    setLocalStorageCountries(countries);
+    store(key.dev, countries);
   };
 
   const handleSelectCountry = (country: Country) => {
+    /* nullish coalescing operator helps us to assign default
+     values to null or undefined variables in Typescript*/
+    const localStorageCountries: Country[] = get(key.dev) ?? [];
     const newSavedCountries = [...localStorageCountries, country];
-    setLocalStorageCountries(newSavedCountries);
     store(key.dev, newSavedCountries);
     setCountries(countries?.filter((c) => c.name !== country.name));
   };
 
-  /* private function only for here */
+  /* a private function that filters already saved countries after REST API call */
   const _removedCountriesAlreadySaved = (allCountries: Country[]) => {
+    const localStorageCountries: Country[] = get(key.dev);
+
     if (localStorageCountries) {
       const filteredCountries = allCountries?.filter(
         (fetchedCountry) =>
@@ -62,7 +64,7 @@ const HomePage = () => {
         countries={countries}
         handleSelectCountry={handleSelectCountry}
       />
-      <DataGridCountry countries={localStorageCountries} />
+      <DataGridCountry />
     </>
   );
 };
