@@ -19,14 +19,6 @@ const HomePage = () => {
     _removedCountriesAlreadySaved(fetchedCountries);
   };
 
-  /* getting saved countries from localStorage */
-  const getCountriesFromLocalStorage = () => {
-    const countries: Country[] = get(key.dev);
-    if (!countries) return;
-
-    store(key.dev, countries);
-  };
-
   const handleSelectCountry = (country: Country) => {
     /* nullish coalescing operator helps us to assign default
      values to null or undefined variables in Typescript*/
@@ -55,7 +47,6 @@ const HomePage = () => {
   /* life-cycle hook */
   useEffect(() => {
     fetchCountries();
-    getCountriesFromLocalStorage();
   }, []);
 
   return (
